@@ -2,7 +2,7 @@ import Navbar from "~/components/Navbar";
 import {usePuterStore} from "~/lib/puter";
 import {useNavigate} from "react-router";
 import {convertPdfToImage} from "~/lib/pdf2img";
-import {generateUUID} from "~/lib/utils";
+import {cleanJsonString, generateUUID} from "~/lib/utils";
 import {prepareInstructions} from "../../constants";
 import ClientOnly from "~/components/ClientOnly";
 // @ts-ignore
@@ -78,9 +78,10 @@ const UploadContent = () => {
                 : '';
 
             try {
-                data.feedback = JSON.parse(feedbackText);
+                data.feedback = JSON.parse(cleanJsonString(feedbackText));
             } catch (error) {
                 console.error('Error parsing feedback:', error);
+                console.log('Original feedback text:', feedbackText);
                 return setStatusText('Error: Failed to parse AI feedback');
             }
 

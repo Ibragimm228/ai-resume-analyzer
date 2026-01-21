@@ -18,3 +18,11 @@ export function formatSize(bytes: number): string {
 
 export const generateUUID = () => crypto.randomUUID();
 
+export function cleanJsonString(jsonString: string): string {
+  return jsonString
+    .replace(/^```json\s*/, "")
+    .replace(/^```\s*/, "")
+    .replace(/\s*```$/, "")
+    .trim();
+}
+
